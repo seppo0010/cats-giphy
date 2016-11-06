@@ -1,0 +1,20 @@
+<style>
+* { margin: 0; padding: 0; border: 0; }
+html, body { width: 100%; height: 100%; }
+img { height: 100%; width: 100%; object-fit: contain; }
+</style>
+<script>
+setInterval(update = function() {
+    var request = new XMLHttpRequest();
+    request.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=cats', true);
+    request.send();
+    request.onload = function() {
+        var j = JSON.parse(request.responseText);
+        document.body.innerHTML = '<img src="' + j.data.image_original_url  + '">'
+    }
+    request.onerror = function() {
+        update();
+    }
+}, 10000);
+update();
+</script>
